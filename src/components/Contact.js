@@ -3,27 +3,8 @@ import React from 'react'
 const Contact = (props) => {
     let { _id, name, phone, email, dial_code, image } = props.contact;
     // console.log(props.contact.image);//
-    if (image === undefined) {
+    if (image === "") {
         image = "https://semantic-ui.com/images/avatar2/large/kristy.png";
-    } else {
-        // image = new File([image], "Download.png", { type: "image/png" });
-        // console.log(file);
-        
-        // console.log(createObjectURL(image));
-        // var urlCreator = window.URL || window.webkitURL;
-        // var imageUrl = urlCreator.createObjectURL(image);
-        // console.log(imageUrl);
-        // document.querySelector("#image").src = imageUrl;
-    }
-
-    function createObjectURL ( file ) {
-        if ( window.webkitURL ) {
-            return window.webkitURL.createObjectURL( file );
-        } else if ( window.URL && window.URL.createObjectURL ) {
-            return window.URL.createObjectURL( file );
-        } else {
-            return null;
-        }
     }
 
     return (
@@ -37,10 +18,10 @@ const Contact = (props) => {
             </div>
             <img className="ui avatar image" id="image-file" alt="profile_pic" src={image} />
 
-            <div class="content">
-                <span class="header"><h5>{name}</h5></span>
-                <div class="description"><i className='fa fa-envelope text-danger'></i> : {email}</div>
-                <div class="description"><i className='fa fa-phone text-primary'></i> : {dial_code} {phone}</div>
+            <div className="content">
+                <span className="header"><h5>{name}</h5></span>
+                <div className="description"><i className='fa fa-envelope text-danger'></i> : {email}</div>
+                <div className="description"><i className='fa fa-phone text-primary'></i> : {dial_code} {phone}</div>
             </div>
         </div>
     );

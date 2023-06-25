@@ -25,7 +25,7 @@ const ContactList = (props) => {
     const allContacts = contacts.map(
         (contact) => {
             return (
-                <Contact contact={contact} deleteContact={deleteContact} />
+                <Contact contact={contact} key={contact._id} deleteContact={deleteContact} />
             );
         }
     );

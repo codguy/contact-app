@@ -11,75 +11,18 @@ const AddContact = (props) => {
 
     const uploadImage = (e) => {
         for (let file of e.target.files) {
-            
-            resizePhotos(file, 1024);
-        }
-    }
-
-    function resizePhotos(file, maxSize) {
-        if (file.type.match(/image.*/)) {
-            var reader = new FileReader();
-            reader.onload = function (readerEvent) {
-                var image = new Image();
-                image.onload = function (imageEvent) {
-
-                    var canvas = document.createElement("canvas"),
-                        max_size = maxSize,
-                        width = image.width,
-                        height = image.height;
-                    if (width > height) {
-                        if (width > max_size) {
-                            height *= max_size / width;
-                            width = max_size;
-                        }
-                    } else {
-                        if (height > max_size) {
-                            width *= max_size / height;
-                            height = max_size;
-                        }
-                    }
-                    canvas.width = width;
-                    canvas.height = height;
-                    canvas.getContext("2d").drawImage(image, 0, 0, width, height);
-                    var dataUrl = canvas.toDataURL("image/jpeg");
-                    var resizedImage = dataURLToBlob(dataUrl);
-                    console.log(dataUrl, resizedImage);
-                    document.getElementById('image-file').setAttribute("src", dataUrl)
-                }
+            const reader = new FileReader()
+            reader.readAsDataURL(file)
+            reader.onload = function () {
+                document.getElementById("image-file").setAttribute("value", reader.result);
             }
-            reader.readAsDataURL(file);
         }
-    };
-
-    function dataURLToBlob(dataURL) {
-        var BASE64_MARKER = ';base64,';
-        if (dataURL.indexOf(BASE64_MARKER) == -1) {
-            var parts = dataURL.split(',');
-            var contentType = parts[0].split(':')[1];
-            var raw = parts[1];
-    
-            return new Blob([raw], {type: contentType});
-        }
-    
-        var parts = dataURL.split(BASE64_MARKER);
-        var contentType = parts[0].split(':')[1];
-        var raw = window.atob(parts[1]);
-        var rawLength = raw.length;
-    
-        var uInt8Array = new Uint8Array(rawLength);
-    
-        for (var i = 0; i < rawLength; ++i) {
-            uInt8Array[i] = raw.charCodeAt(i);
-        }
-    
-        return new Blob([uInt8Array], {type: contentType});
     }
 
     const saveContact = (e) => {
         e.preventDefault();
         let data = $(e.target).serializeArray();
         let files = document.getElementById("image-file").defaultValue;
-        console.log(files);
         let obj = {}
         let contacts = [];
         data.map((data) => {
@@ -87,7 +30,6 @@ const AddContact = (props) => {
         });
         obj['_id'] = Math.random().toString(36).slice(2, 7);
         obj['image'] = files;
-        console.log(obj);
         let oldContacts = localStorage.getItem('contacts');
         if (oldContacts === null) {
             contacts = JSON.stringify([obj]);
