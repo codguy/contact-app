@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Contact from './Contact';
+import ContactModal from './ContactModal';
+// import $ from 'jquery';
+import 'bootstrap';
 
 const ContactList = (props) => {
     let contactJSON = localStorage.getItem('contacts');
@@ -18,14 +21,22 @@ const ContactList = (props) => {
             // INFO: sorting the contacts
             contacts.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1);
         }
-        
-        
+
+
+    }
+    
+    const [state, setState] = useState({ isOpen: false });
+    const openModal = () => setState({ isOpen: true });
+    const closeModal = () => setState({ isOpen: false });
+
+    const contactModal = (contact) => {
+        setState({ isOpen: true, data: contact });
     }
 
     const allContacts = contacts.map(
         (contact) => {
             return (
-                <Contact contact={contact} key={contact._id} deleteContact={deleteContact} />
+                <Contact contact={contact} key={contact._id} deleteContact={deleteContact} contactModal={(event) => contactModal(contact)} />
             );
         }
     );
@@ -48,15 +59,18 @@ const ContactList = (props) => {
         window.location.reload();
     }
     return (
-        <div className="ui middle aligned divided list segment p-4 mt-5" id="Contact-list">
-            <div className='float-right' style={{ float: "right" }}>
+        <>
+            <div className="ui middle aligned divided list segment p-4 mt-5" id="Contact-list">
+                <div className='float-right' style={{ float: "right" }}>
 
-                <i className="fa fa-plus btn btn-outline-primary" onClick={addContactForm} style={{ marginRight: 6 + "px" }}></i>
-                <i className="fa fa-times btn btn-danger" onClick={deleteAllContacts}></i>
-            </div>
-            <h3>Added Contacts</h3>
-            {allContacts}
-        </div >
+                    <i className="fa fa-plus btn btn-outline-primary" onClick={addContactForm} style={{ marginRight: 6 + "px" }}></i>
+                    <i className="fa fa-times btn btn-danger" onClick={deleteAllContacts}></i>
+                </div>
+                <h3>Added Contacts</h3>
+                {allContacts}
+            </div >
+            <ContactModal state={state} openModal={openModal} closeModal={closeModal} />
+        </>
     );
 }
 

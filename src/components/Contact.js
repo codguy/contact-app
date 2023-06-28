@@ -1,8 +1,8 @@
 import React from 'react'
+import ContactModal from './ContactModal';
 
 const Contact = (props) => {
     let { _id, name, phone, email, dial_code, image } = props.contact;
-    // console.log(props.contact.image);//
     if (image === "") {
         image = "https://semantic-ui.com/images/avatar2/large/kristy.png";
     }
@@ -18,7 +18,7 @@ const Contact = (props) => {
             </div>
             <img className="ui avatar image" id="image-file" alt="profile_pic" src={image} />
 
-            <div className="content">
+            <div className="content" onClick={props.contactModal}>
                 <span className="header"><h5>{name}</h5></span>
                 <div className="description"><i className='fa fa-envelope text-danger'></i> : {email}</div>
                 <div className="description"><i className='fa fa-phone text-primary'></i> : {dial_code} {phone}</div>

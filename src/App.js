@@ -3,7 +3,7 @@ import Header from './components/header';
 import AddContact from './components/AddContact';
 import ContactList from './components/ContactList';
 import React from 'react';
-import { BrowserRouter as Router, Routes, Link, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
