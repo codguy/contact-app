@@ -36,7 +36,7 @@ const ContactList = (props) => {
     const allContacts = contacts.map(
         (contact) => {
             return (
-                <Contact contact={contact} key={contact._id} deleteContact={deleteContact} contactModal={(event) => contactModal(contact)} />
+                <Contact contact={contact} key={contact._id} deleteContact={deleteContact} contactModal={(event) => contactModal(contact)} editContact={(event) => editContact(contact)} />
             );
         }
     );
@@ -47,6 +47,10 @@ const ContactList = (props) => {
         contacts = contacts.filter(item => item._id !== id);
         localStorage.setItem('contacts', JSON.stringify(contacts));
         navigate("/");
+    }
+
+    function editContact(e) {
+        navigate("update/" + e._id);
     }
 
     const addContactForm = () => {
@@ -66,7 +70,7 @@ const ContactList = (props) => {
                     <i className="fa fa-plus btn btn-outline-primary" onClick={addContactForm} style={{ marginRight: 6 + "px" }}></i>
                     <i className="fa fa-times btn btn-danger" onClick={deleteAllContacts}></i>
                 </div>
-                <h3>Added Contacts</h3>
+                <h2>Contacts</h2>
                 {allContacts}
             </div >
             <ContactModal state={state} openModal={openModal} closeModal={closeModal} />

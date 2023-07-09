@@ -10,13 +10,11 @@ const Contact = (props) => {
     return (
         <div className="item mt-2">
             <div className="right floated content">
-                {/* <div className="ui teal basic button">
-                    <i className='fa fa-pen'></i>
-                </div>  */}
+                <i className='fa fa-pen btn btn-outline-warning mt-3 mr-3' style={{marginRight: 6 + "px"}} onClick={props.editContact}></i>
                 <i className="fa fa-times btn btn-outline-danger mt-3" onClick={props.deleteContact} data-id={_id}>
                 </i>
             </div>
-            <img className="ui avatar image" id="image-file" alt="profile_pic" src={image} />
+            <img className="ui avatar image" style={{height:50+"px", width:50+"px"}} alt="profile_pic" src={image}  onClick={props.contactModal} />
 
             <div className="content" onClick={props.contactModal}>
                 <span className="header"><h5>{name}</h5></span>
