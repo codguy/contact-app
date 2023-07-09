@@ -13,6 +13,7 @@ function App() {
         <Router>
           <Routes>
             <Route path='/add' element={<AddContact />} />
+            <Route path='/update/:id' element={<AddContact />} />
             <Route path='/' element={<ContactList />} />
           </Routes>
         </Router>
